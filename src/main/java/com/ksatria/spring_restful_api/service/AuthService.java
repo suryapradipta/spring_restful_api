@@ -4,6 +4,7 @@ import com.ksatria.spring_restful_api.common.security.BCrypt;
 import com.ksatria.spring_restful_api.entity.User;
 import com.ksatria.spring_restful_api.model.LoginUserRequest;
 import com.ksatria.spring_restful_api.model.RegisterUserRequest;
+import com.ksatria.spring_restful_api.model.TokenResponse;
 import com.ksatria.spring_restful_api.repository.UserRepository;
 import jakarta.transaction.Transactional;
 import jakarta.validation.ConstraintViolation;
@@ -15,10 +16,11 @@ import org.springframework.stereotype.Service;
 import org.springframework.web.server.ResponseStatusException;
 
 import java.util.Set;
+import java.util.UUID;
 
 @Service
-public class UserService {
 
+public class AuthService {
     @Autowired
     private UserRepository userRepository;
 
@@ -26,18 +28,30 @@ public class UserService {
     private ValidationService validationService;
 
     @Transactional
-    public void register(RegisterUserRequest request) {
+    public TokenResponse login(LoginUserRequest request) {
         validationService.validate(request);
 
-        if (userRepository.existsById(request.getUsername())) {
-            throw new ResponseStatusException(HttpStatus.BAD_REQUEST, "Username already registered");
+        User user = userRepository.findById(request.getUsername())
+            .orElseThrow(()-> new ResponseStatusException(HttpStatus.UNAUTHORIZED, "Username or password wrong"));
+
+        if(BCrypt.checkpw(request.getPassword(), user.getPassword())){
+            user.setToken(UUID.randomUUID().toString());
+            user.setExpiredTokenAt(next30Days());
+
+            userRepository.save(user);
+            return TokenResponse.builder()
+                .token(user.getToken())
+                .expiredAt(user.getExpiredTokenAt())
+                .build();
+        } else {
+            throw new ResponseStatusException(HttpStatus.UNAUTHORIZED, "Username or password wrong");
         }
 
-        User user = new User();
-        user.setUsername(request.getUsername());
-        user.setPassword(BCrypt.hashpw(request.getPassword(), BCrypt.gensalt()));
-        user.setName(request.getName());
 
-        userRepository.save(user);
+
+    }
+
+    private Long next30Days() {
+        return System.currentTimeMillis() + (1000 * 16 * 24 * 30);
     }
 }
