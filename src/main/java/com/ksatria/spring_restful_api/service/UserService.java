@@ -4,6 +4,8 @@ import com.ksatria.spring_restful_api.common.security.BCrypt;
 import com.ksatria.spring_restful_api.entity.User;
 import com.ksatria.spring_restful_api.model.LoginUserRequest;
 import com.ksatria.spring_restful_api.model.RegisterUserRequest;
+import com.ksatria.spring_restful_api.model.UserResponse;
+import com.ksatria.spring_restful_api.model.WebResponse;
 import com.ksatria.spring_restful_api.repository.UserRepository;
 import jakarta.transaction.Transactional;
 import jakarta.validation.ConstraintViolation;
@@ -40,4 +42,12 @@ public class UserService {
 
         userRepository.save(user);
     }
+
+    public UserResponse get(User user) {
+        return UserResponse.builder()
+            .username(user.getUsername())
+            .name(user.getName())
+            .build();
+    }
+
 }
