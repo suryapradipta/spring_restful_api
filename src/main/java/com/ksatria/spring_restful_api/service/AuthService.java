@@ -46,12 +46,17 @@ public class AuthService {
         } else {
             throw new ResponseStatusException(HttpStatus.UNAUTHORIZED, "Username or password wrong");
         }
-
-
-
     }
 
     private Long next30Days() {
         return System.currentTimeMillis() + (1000 * 16 * 24 * 30);
+    }
+
+    @Transactional
+    public void logOut(User user) {
+        user.setToken(null);
+        user.setExpiredTokenAt(null);
+
+        userRepository.save(user);
     }
 }
