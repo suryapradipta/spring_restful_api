@@ -26,3 +26,10 @@ contoh validasi mau digabung dengan header dan request param
 jadi itu tidak bisa digabung di controller
 
 jadi harus disimpan dulu di 1 object, nanti ditambahkan validasi di level service 
+
+
+# Resolver
+1:55:00
+* setiap ada controller yang butuh data user (parameter), maka secara otomatis menggunakan UserArgumentResolver
+* untuk dapetin data user, kemudian check apakah tokennya ada atau tidak 
+* kemudian Resolvernya ditambahkan di WebConfiguration
