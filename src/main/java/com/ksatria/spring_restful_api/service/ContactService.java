@@ -3,6 +3,7 @@ package com.ksatria.spring_restful_api.service;
 import com.ksatria.spring_restful_api.entity.Contact;
 import com.ksatria.spring_restful_api.entity.User;
 import com.ksatria.spring_restful_api.model.request.CreateContactRequest;
+import com.ksatria.spring_restful_api.model.request.UpdateContactRequest;
 import com.ksatria.spring_restful_api.model.response.ContactResponse;
 import com.ksatria.spring_restful_api.repository.ContactRepository;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -36,6 +37,10 @@ public class ContactService {
 
         contactRepository.save(contact);
 
+        return toContactResponse(contact);
+    }
+
+    public ContactResponse toContactResponse(Contact contact) {
         return ContactResponse.builder()
             .id(contact.getId())
             .firstName(contact.getFirstName())
@@ -50,12 +55,24 @@ public class ContactService {
         Contact contact = contactRepository.findFirstByUserAndId(user, id)
             .orElseThrow(() -> new ResponseStatusException(HttpStatus.NOT_FOUND, "Contact not found"));
 
-        return ContactResponse.builder()
-            .id(contact.getId())
-            .firstName(contact.getFirstName())
-            .lastName(contact.getLastName())
-            .phone(contact.getPhone())
-            .email(contact.getEmail())
-            .build();
+        return toContactResponse(contact);
+    }
+
+    @Transactional
+    public ContactResponse update(User user, UpdateContactRequest request) {
+        validationService.validate(request);
+
+        Contact contact = contactRepository.findFirstByUserAndId(user, request.getId())
+            .orElseThrow(()-> new ResponseStatusException(HttpStatus.NOT_FOUND, "Contact not found"));
+
+        contact.setFirstName(request.getFirstName());
+        contact.setLastName(request.getLastName());
+        contact.setPhone(request.getPhone());
+        contact.setEmail(request.getEmail());
+
+        contactRepository.save(contact);
+
+        return toContactResponse(contact);
+
     }
 }
