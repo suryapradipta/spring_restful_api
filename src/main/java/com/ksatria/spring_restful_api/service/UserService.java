@@ -2,10 +2,7 @@ package com.ksatria.spring_restful_api.service;
 
 import com.ksatria.spring_restful_api.common.security.BCrypt;
 import com.ksatria.spring_restful_api.entity.User;
-import com.ksatria.spring_restful_api.model.LoginUserRequest;
-import com.ksatria.spring_restful_api.model.RegisterUserRequest;
-import com.ksatria.spring_restful_api.model.UserResponse;
-import com.ksatria.spring_restful_api.model.WebResponse;
+import com.ksatria.spring_restful_api.model.*;
 import com.ksatria.spring_restful_api.repository.UserRepository;
 import jakarta.transaction.Transactional;
 import jakarta.validation.ConstraintViolation;
@@ -16,6 +13,7 @@ import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Service;
 import org.springframework.web.server.ResponseStatusException;
 
+import java.util.Objects;
 import java.util.Set;
 
 @Service
@@ -47,6 +45,26 @@ public class UserService {
         return UserResponse.builder()
             .username(user.getUsername())
             .name(user.getName())
+            .build();
+    }
+
+    @Transactional
+    public UserResponse update(User user, UpdateUserRequest request) {
+        validationService.validate(request);
+
+        if(Objects.nonNull(request.getName())) {
+            user.setName(request.getName());
+        }
+
+        if(Objects.nonNull(request.getPassword())) {
+            user.setPassword(BCrypt.hashpw(request.getPassword(), BCrypt.gensalt()));
+        }
+
+        userRepository.save(user);
+
+        return UserResponse.builder()
+            .name(user.getName())
+            .username(user.getUsername())
             .build();
     }
 

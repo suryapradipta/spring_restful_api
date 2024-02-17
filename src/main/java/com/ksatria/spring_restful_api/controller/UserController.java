@@ -34,4 +34,15 @@ public class UserController {
             .data(userResponse).build();
     }
 
+    @PatchMapping(
+        path = "api/users/current",
+        consumes = MediaType.APPLICATION_JSON_VALUE,
+        produces = MediaType.APPLICATION_JSON_VALUE
+    )
+    public WebResponse<UserResponse> update(User user, @RequestBody UpdateUserRequest request) {
+        UserResponse userResponse = userService.update(user, request);
+        return WebResponse.<UserResponse>builder()
+            .data(userResponse).build();
+    }
+
 }
