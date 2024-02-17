@@ -1,11 +1,10 @@
 package com.ksatria.spring_restful_api.controller;
 
-import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.core.type.TypeReference;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.ksatria.spring_restful_api.entity.User;
-import com.ksatria.spring_restful_api.model.RegisterUserRequest;
-import com.ksatria.spring_restful_api.model.WebResponse;
+import com.ksatria.spring_restful_api.model.request.RegisterUserRequest;
+import com.ksatria.spring_restful_api.model.response.WebResponse;
 import com.ksatria.spring_restful_api.repository.UserRepository;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;

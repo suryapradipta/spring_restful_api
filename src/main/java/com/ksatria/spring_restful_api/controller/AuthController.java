@@ -1,12 +1,10 @@
 package com.ksatria.spring_restful_api.controller;
 
 import com.ksatria.spring_restful_api.entity.User;
-import com.ksatria.spring_restful_api.model.LoginUserRequest;
-import com.ksatria.spring_restful_api.model.RegisterUserRequest;
-import com.ksatria.spring_restful_api.model.TokenResponse;
-import com.ksatria.spring_restful_api.model.WebResponse;
+import com.ksatria.spring_restful_api.model.request.LoginUserRequest;
+import com.ksatria.spring_restful_api.model.response.TokenResponse;
+import com.ksatria.spring_restful_api.model.response.WebResponse;
 import com.ksatria.spring_restful_api.service.AuthService;
-import com.ksatria.spring_restful_api.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.MediaType;
 import org.springframework.web.bind.annotation.DeleteMapping;
@@ -20,7 +18,7 @@ public class AuthController {
     private AuthService authService;
 
     @PostMapping(
-        path = "api/auth/login",
+        path = "/api/auth/login",
         consumes = MediaType.APPLICATION_JSON_VALUE,
         produces = MediaType.APPLICATION_JSON_VALUE
     )
@@ -31,7 +29,7 @@ public class AuthController {
     }
 
     @DeleteMapping(
-        path = "api/auth/logout",
+        path = "/api/auth/logout",
         produces = MediaType.APPLICATION_JSON_VALUE
     )
     public WebResponse<String> logOut(User user) {

@@ -1,7 +1,10 @@
 package com.ksatria.spring_restful_api.controller;
 
 import com.ksatria.spring_restful_api.entity.User;
-import com.ksatria.spring_restful_api.model.*;
+import com.ksatria.spring_restful_api.model.request.RegisterUserRequest;
+import com.ksatria.spring_restful_api.model.request.UpdateUserRequest;
+import com.ksatria.spring_restful_api.model.response.UserResponse;
+import com.ksatria.spring_restful_api.model.response.WebResponse;
 import com.ksatria.spring_restful_api.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.MediaType;
@@ -14,7 +17,7 @@ public class UserController {
     private UserService userService;
 
     @PostMapping(
-        path = "api/users",
+        path = "/api/users",
         consumes = MediaType.APPLICATION_JSON_VALUE,
         produces = MediaType.APPLICATION_JSON_VALUE
     )
@@ -24,7 +27,7 @@ public class UserController {
     }
 
     @GetMapping(
-        path = "api/users/current",
+        path = "/api/users/current",
         produces = MediaType.APPLICATION_JSON_VALUE
     )
     public WebResponse<UserResponse> get(User user) {
@@ -35,7 +38,7 @@ public class UserController {
     }
 
     @PatchMapping(
-        path = "api/users/current",
+        path = "/api/users/current",
         consumes = MediaType.APPLICATION_JSON_VALUE,
         produces = MediaType.APPLICATION_JSON_VALUE
     )

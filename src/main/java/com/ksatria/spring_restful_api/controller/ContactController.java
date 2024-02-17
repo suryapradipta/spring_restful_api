@@ -1,7 +1,7 @@
 package com.ksatria.spring_restful_api.controller;
 
 import com.ksatria.spring_restful_api.entity.User;
-import com.ksatria.spring_restful_api.model.WebResponse;
+import com.ksatria.spring_restful_api.model.response.WebResponse;
 import com.ksatria.spring_restful_api.model.request.CreateContactRequest;
 import com.ksatria.spring_restful_api.model.response.ContactResponse;
 import com.ksatria.spring_restful_api.service.ContactService;

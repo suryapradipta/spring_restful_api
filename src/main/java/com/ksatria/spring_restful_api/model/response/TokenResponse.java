@@ -1,4 +1,4 @@
-package com.ksatria.spring_restful_api.model;
+package com.ksatria.spring_restful_api.model.response;
 
 import lombok.AllArgsConstructor;
 import lombok.Builder;

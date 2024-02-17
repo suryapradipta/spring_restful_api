@@ -1,11 +1,10 @@
 package com.ksatria.spring_restful_api.controller;
 
-import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.core.type.TypeReference;
 import com.fasterxml.jackson.databind.ObjectMapper;
-import com.ksatria.spring_restful_api.model.LoginUserRequest;
-import com.ksatria.spring_restful_api.model.TokenResponse;
-import com.ksatria.spring_restful_api.model.WebResponse;
+import com.ksatria.spring_restful_api.model.request.LoginUserRequest;
+import com.ksatria.spring_restful_api.model.response.TokenResponse;
+import com.ksatria.spring_restful_api.model.response.WebResponse;
 import com.ksatria.spring_restful_api.repository.UserRepository;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;

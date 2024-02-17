@@ -1,6 +1,6 @@
 package com.ksatria.spring_restful_api.controller;
 
-import com.ksatria.spring_restful_api.model.WebResponse;
+import com.ksatria.spring_restful_api.model.response.WebResponse;
 import jakarta.validation.ConstraintViolationException;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;

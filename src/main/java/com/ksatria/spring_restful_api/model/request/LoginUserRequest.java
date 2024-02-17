@@ -1,4 +1,4 @@
-package com.ksatria.spring_restful_api.model;
+package com.ksatria.spring_restful_api.model.request;
 
 import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.Size;

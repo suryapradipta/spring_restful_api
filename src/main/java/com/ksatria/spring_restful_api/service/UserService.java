@@ -2,19 +2,17 @@ package com.ksatria.spring_restful_api.service;
 
 import com.ksatria.spring_restful_api.common.security.BCrypt;
 import com.ksatria.spring_restful_api.entity.User;
-import com.ksatria.spring_restful_api.model.*;
+import com.ksatria.spring_restful_api.model.request.RegisterUserRequest;
+import com.ksatria.spring_restful_api.model.request.UpdateUserRequest;
+import com.ksatria.spring_restful_api.model.response.UserResponse;
 import com.ksatria.spring_restful_api.repository.UserRepository;
 import jakarta.transaction.Transactional;
-import jakarta.validation.ConstraintViolation;
-import jakarta.validation.ConstraintViolationException;
-import jakarta.validation.Validator;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Service;
 import org.springframework.web.server.ResponseStatusException;
 
 import java.util.Objects;
-import java.util.Set;
 
 @Service
 public class UserService {

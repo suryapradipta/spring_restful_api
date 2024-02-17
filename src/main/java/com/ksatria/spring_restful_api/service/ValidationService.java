@@ -1,6 +1,5 @@
 package com.ksatria.spring_restful_api.service;
 
-import com.ksatria.spring_restful_api.model.RegisterUserRequest;
 import jakarta.validation.ConstraintViolation;
 import jakarta.validation.ConstraintViolationException;
 import jakarta.validation.Validator;
