@@ -1,5 +1,9 @@
 # Question
 - Sebaiknya melakukan validation di service atau di controller, karena di angular ada trend clean service kalo tidak salah, tapi clean dengan artian hanya return response
+- problem ternyata nama entity harus plural
+- Debugingnya cukup sulit karena ga dikasi tau errornya dimana dan karena apa, ga specific
+- Saya masih belum tahu, kan contact punya many to one ke user. Apakah user perlu save data contact juga (apakah kedua entity harus saling nge save) atau cukup salah satu entity saja
+- Biasanya kita sudah tau data apa yang kita butuhkan di frontend, namun jika kita focus di backend. Dokumentasi API itu penting supaya kita tau apa yang dibutuhkan dan dihasilkan
 
 
 # Kenapa jangan gunakan entity sebagai request body
