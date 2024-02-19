@@ -37,6 +37,16 @@ public class UserController {
             .data(userResponse).build();
     }
 
+    // notes: spring tidak menyediakan user object, unknown ....
+    /*
+    *
+    * bean user tidak ada,
+    * kita harus siapin lapisan,
+    *
+    *
+    * harus register sesuatu untuk handle auth
+    * */
+
     @PatchMapping(
         path = "/api/users/current",
         consumes = MediaType.APPLICATION_JSON_VALUE,

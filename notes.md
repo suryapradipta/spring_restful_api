@@ -3,7 +3,35 @@
 - problem ternyata nama entity harus plural
 - Debugingnya cukup sulit karena ga dikasi tau errornya dimana dan karena apa, ga specific
 - Saya masih belum tahu, kan contact punya many to one ke user. Apakah user perlu save data contact juga (apakah kedua entity harus saling nge save) atau cukup salah satu entity saja
-- Biasanya kita sudah tau data apa yang kita butuhkan di frontend, namun jika kita focus di backend. Dokumentasi API itu penting supaya kita tau apa yang dibutuhkan dan dihasilkan
+- ASNEWR: Ada duplikasi jadinya, jika ssave di kedua entity, hindari duplikasi 
+
+subscribe di coponent terakhir, jangan di service
+component terakhir yang subscirbe
+
+level html async pipe
+
+intinya componet terakhir == yang menampiklan data ke user
+
+
+demo graphql how it works
+
+
+
+ada spring security , perlu mamahami concept tambahan, setting di file 1 config , specify 1 class config detail
+ada class yang handle main logic, daftar ke lifecycle
+
+framework apapunsama conceptnya
+
+
+
+
+
+
+# ASNWER
+* di sisi service (not final)
+* klo controller, artinya == validate input sebelum sampai service, kalo service berat:
+* ada heavy process, resources akan kemakan, vladiasi sederhana taruh di controller
+* service supaya tidak duplikasi validation
 
 
 # Kenapa jangan gunakan entity sebagai request body

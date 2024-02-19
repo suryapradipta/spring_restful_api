@@ -29,6 +29,12 @@ public class ContactController {
             .build();
     }
 
+
+    // NOTES : SAMPAI LEVEL SERVICE BISA DI RESUSE, BEDA DI CONTROLLERNYA, GRAPHQL PAKAI@CONTROLLER
+    /*
+    * CONTROLLERNYA SUPAYA RINGAN
+    * */
+
     @GetMapping(
         path = "/api/contacts/{id}",
         produces = MediaType.APPLICATION_JSON_VALUE
