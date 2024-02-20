@@ -7,6 +7,8 @@ import com.ksatria.spring_restful_api.model.request.CreateContactRequest;
 import com.ksatria.spring_restful_api.model.response.ContactResponse;
 import com.ksatria.spring_restful_api.service.ContactService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.graphql.data.method.annotation.Argument;
+import org.springframework.graphql.data.method.annotation.QueryMapping;
 import org.springframework.http.MediaType;
 import org.springframework.web.bind.annotation.*;
 
@@ -68,6 +70,12 @@ public class ContactController {
         contactService.delete(user, id);
 
         return WebResponse.<String>builder().data("Ok").build();
+    }
+
+
+    @QueryMapping
+    public ContactResponse getContactById(@Argument String id) {
+        return contactService.getContactById(id);
     }
 
 
