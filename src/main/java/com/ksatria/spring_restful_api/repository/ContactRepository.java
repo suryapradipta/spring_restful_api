@@ -11,5 +11,4 @@ import java.util.Optional;
 public interface ContactRepository extends JpaRepository<Contact, String> {
     Optional<Contact> findFirstByUserAndId(User user, String id);
 
-
 }

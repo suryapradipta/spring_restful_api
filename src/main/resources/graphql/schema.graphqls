@@ -1,0 +1,78 @@
+type User {
+    username: ID!
+    password: String
+    name: String
+    token: String
+    expiredTokenAt: String
+    contactList: [Contact]
+}
+
+type Contact {
+    id: ID!
+    firstName: String
+    lastName: String
+    phone: String
+    email: String
+    user: User
+    addressList: [Address]
+}
+
+type Address {
+    id: ID!
+    street: String
+    city: String
+    province: String
+    country: String
+    postalCode: String
+    contact: Contact
+}
+
+type VoidResponse {
+    success: Boolean!
+    message: String
+}
+
+input RegisterUserRequest {
+    username: ID
+    password: String
+    name: String
+}
+
+input LoginUserRequest {
+    username: ID
+    password: String
+}
+
+input CreateContactRequest {
+    firstName: String
+    lastName: String
+    phone: String
+    email: String
+}
+
+input UpdateContactRequest {
+    id: ID
+    firstName: String
+    lastName: String
+    phone: String
+    email: String
+}
+
+type Mutation {
+    registerUser(request: RegisterUserRequest) : User
+    logOutUser(token: String): VoidResponse
+    createContact(token: String, request: CreateContactRequest): VoidResponse
+    updateContact(token: String, request: UpdateContactRequest): VoidResponse
+    deleteContact(token: String, contactId: String): VoidResponse
+}
+
+type Query {
+    getContactById(id: ID): Contact
+    allUsers: [User]
+    loginUser(request: LoginUserRequest): User
+    getCurrentUser(token: String): User
+    getAllContacts: [Contact]
+}
+
+
+

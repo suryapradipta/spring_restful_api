@@ -4,11 +4,17 @@ import com.ksatria.spring_restful_api.entity.User;
 import com.ksatria.spring_restful_api.model.request.RegisterUserRequest;
 import com.ksatria.spring_restful_api.model.request.UpdateUserRequest;
 import com.ksatria.spring_restful_api.model.response.UserResponse;
+import com.ksatria.spring_restful_api.model.response.VoidResponse;
 import com.ksatria.spring_restful_api.model.response.WebResponse;
 import com.ksatria.spring_restful_api.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.graphql.data.method.annotation.Argument;
+import org.springframework.graphql.data.method.annotation.MutationMapping;
+import org.springframework.graphql.data.method.annotation.QueryMapping;
 import org.springframework.http.MediaType;
 import org.springframework.web.bind.annotation.*;
+
+import java.util.List;
 
 @RestController
 public class UserController {
@@ -48,4 +54,18 @@ public class UserController {
             .data(userResponse).build();
     }
 
+    @QueryMapping
+    public List<User> allUsers() {
+        return userService.getAllUsers();
+    }
+
+    @MutationMapping
+    public VoidResponse registerUser(@Argument RegisterUserRequest request) {
+        return userService.signUp(request);
+    }
+
+    @QueryMapping
+    public User getCurrentUser(@Argument String token) {
+        return userService.currentUser(token);
+    }
 }

@@ -1,20 +1,29 @@
 package com.ksatria.spring_restful_api.controller;
 
+import com.ksatria.spring_restful_api.entity.Contact;
 import com.ksatria.spring_restful_api.entity.User;
 import com.ksatria.spring_restful_api.model.request.UpdateContactRequest;
+import com.ksatria.spring_restful_api.model.response.VoidResponse;
 import com.ksatria.spring_restful_api.model.response.WebResponse;
 import com.ksatria.spring_restful_api.model.request.CreateContactRequest;
 import com.ksatria.spring_restful_api.model.response.ContactResponse;
 import com.ksatria.spring_restful_api.service.ContactService;
+import lombok.AllArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.graphql.data.method.annotation.Argument;
+import org.springframework.graphql.data.method.annotation.Arguments;
+import org.springframework.graphql.data.method.annotation.MutationMapping;
+import org.springframework.graphql.data.method.annotation.QueryMapping;
 import org.springframework.http.MediaType;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.List;
+
 @RestController
+@AllArgsConstructor
 public class ContactController {
 
-    @Autowired
-    private ContactService contactService;
+    private final ContactService contactService;
 
     @PostMapping(
         path = "/api/contacts",
@@ -71,4 +80,30 @@ public class ContactController {
     }
 
 
+    @QueryMapping
+    public ContactResponse getContactById(@Argument String id) {
+        return contactService.getContactById(id);
+    }
+
+
+    @MutationMapping
+    public VoidResponse createContact(@Argument String token,
+                                      @Argument CreateContactRequest request) {
+        return contactService.createContact(token, request);
+    }
+
+    @QueryMapping
+    public List<Contact> getAllContacts() {
+        return contactService.getAllContacts();
+    }
+
+    @MutationMapping
+    public VoidResponse updateContact(@Argument  String token, @Argument UpdateContactRequest request) {
+       return contactService.updateContact(token, request);
+    }
+
+    @MutationMapping
+    public VoidResponse deleteContact(@Argument String token, @Argument String contactId) {
+        return contactService.deleteContact(token, contactId);
+    }
 }

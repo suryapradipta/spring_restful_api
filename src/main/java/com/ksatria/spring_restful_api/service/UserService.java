@@ -5,23 +5,24 @@ import com.ksatria.spring_restful_api.entity.User;
 import com.ksatria.spring_restful_api.model.request.RegisterUserRequest;
 import com.ksatria.spring_restful_api.model.request.UpdateUserRequest;
 import com.ksatria.spring_restful_api.model.response.UserResponse;
+import com.ksatria.spring_restful_api.model.response.VoidResponse;
 import com.ksatria.spring_restful_api.repository.UserRepository;
 import jakarta.transaction.Transactional;
-import org.springframework.beans.factory.annotation.Autowired;
+import lombok.AllArgsConstructor;
 import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Service;
 import org.springframework.web.server.ResponseStatusException;
 
+import java.util.List;
 import java.util.Objects;
 
 @Service
+@AllArgsConstructor
 public class UserService {
 
-    @Autowired
-    private UserRepository userRepository;
+    private final UserRepository userRepository;
 
-    @Autowired
-    private ValidationService validationService;
+    private final ValidationService validationService;
 
     @Transactional
     public void register(RegisterUserRequest request) {
@@ -39,6 +40,7 @@ public class UserService {
         userRepository.save(user);
     }
 
+    @Transactional
     public UserResponse get(User user) {
         return UserResponse.builder()
             .username(user.getUsername())
@@ -66,4 +68,40 @@ public class UserService {
             .build();
     }
 
+
+
+    @Transactional
+    public List<User> getAllUsers() {
+        return userRepository.findAll();
+    }
+
+
+    @Transactional
+    public VoidResponse signUp(RegisterUserRequest request) {
+        validationService.validate(request);
+
+        if (userRepository.existsById(request.getUsername())) {
+            throw new ResponseStatusException(HttpStatus.BAD_REQUEST, "Username already registered");
+        }
+
+        User user = new User();
+        user.setUsername(request.getUsername());
+        user.setPassword(BCrypt.hashpw(request.getPassword(), BCrypt.gensalt()));
+        user.setName(request.getName());
+
+        userRepository.save(user);
+
+        return new VoidResponse(
+                true,
+                "User successfully registered"
+        );
+    }
+
+
+    @Transactional
+    public User currentUser(String token) {
+
+        return userRepository.findFirstByToken(token)
+                .orElseThrow(()-> new ResponseStatusException(HttpStatus.UNAUTHORIZED, "Unauthorized"));
+    }
 }
