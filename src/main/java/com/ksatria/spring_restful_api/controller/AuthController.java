@@ -5,11 +5,7 @@ import com.ksatria.spring_restful_api.model.request.LoginUserRequest;
 import com.ksatria.spring_restful_api.model.response.TokenResponse;
 import com.ksatria.spring_restful_api.model.response.WebResponse;
 import com.ksatria.spring_restful_api.service.AuthService;
-import jakarta.transaction.Transactional;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.graphql.data.method.annotation.Argument;
-import org.springframework.graphql.data.method.annotation.MutationMapping;
-import org.springframework.graphql.data.method.annotation.QueryMapping;
 import org.springframework.http.MediaType;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -40,15 +36,5 @@ public class AuthController {
         authService.logOut(user);
 
         return WebResponse.<String>builder().data("Ok").build();
-    }
-
-    @QueryMapping
-    public User loginUser(@Argument LoginUserRequest request) {
-        return authService.signIn(request);
-    }
-
-    @QueryMapping
-    public void logOutUser(User user) {
-        authService.logOut(user);
     }
 }

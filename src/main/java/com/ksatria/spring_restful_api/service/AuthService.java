@@ -54,22 +54,4 @@ public class AuthService {
 
         userRepository.save(user);
     }
-
-    @Transactional
-    public User signIn(LoginUserRequest request) {
-        validationService.validate(request);
-
-        User user = userRepository.findById(request.getUsername())
-            .orElseThrow(()-> new ResponseStatusException(HttpStatus.UNAUTHORIZED, "Username or password wrong"));
-
-        if(BCrypt.checkpw(request.getPassword(), user.getPassword())){
-            user.setToken(UUID.randomUUID().toString());
-            user.setExpiredTokenAt(next30Days());
-
-            userRepository.save(user);
-            return user;
-        } else {
-            throw new ResponseStatusException(HttpStatus.UNAUTHORIZED, "Username or password wrong");
-        }
-    }
 }

@@ -23,16 +23,6 @@ public class ContactService {
     @Autowired
     private ValidationService validationService;
 
-    public ContactResponse toContactResponse(Contact contact) {
-        return ContactResponse.builder()
-            .id(contact.getId())
-            .firstName(contact.getFirstName())
-            .lastName(contact.getLastName())
-            .phone(contact.getPhone())
-            .email(contact.getEmail())
-            .build();
-    }
-
     @Transactional
     public ContactResponse create(User user, CreateContactRequest request) {
         validationService.validate(request);
@@ -48,6 +38,16 @@ public class ContactService {
         contactRepository.save(contact);
 
         return toContactResponse(contact);
+    }
+
+    public ContactResponse toContactResponse(Contact contact) {
+        return ContactResponse.builder()
+            .id(contact.getId())
+            .firstName(contact.getFirstName())
+            .lastName(contact.getLastName())
+            .phone(contact.getPhone())
+            .email(contact.getEmail())
+            .build();
     }
 
     @Transactional(readOnly = true)
@@ -82,17 +82,4 @@ public class ContactService {
 
         contactRepository.deleteById(contact.getId());
     }
-
-    @Transactional
-    public ContactResponse getContactById(String contactId) {
-        Contact contact = contactRepository.findById(contactId)
-            .orElseThrow(() -> new ResponseStatusException(
-                HttpStatus.NOT_FOUND,
-                "Contact Not Found"
-            ));
-
-        return toContactResponse(contact);
-    }
-
-
 }

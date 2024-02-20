@@ -28,6 +28,8 @@ public class Address {
     private String postalCode;
 
     @ManyToOne
+    // referencedColumnName is optional, can be not specify
+//    @JoinColumn(name = "contact_id", referencedColumnName = "id")
     @JoinColumn(name = "contact_id")
     private Contact contact;
 }
