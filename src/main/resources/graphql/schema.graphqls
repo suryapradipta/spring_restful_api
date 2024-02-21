@@ -59,7 +59,7 @@ input UpdateContactRequest {
 }
 
 type Mutation {
-    registerUser(request: RegisterUserRequest) : User
+    registerUser(request: RegisterUserRequest) : VoidResponse
     logOutUser(token: String): VoidResponse
     createContact(token: String, request: CreateContactRequest): VoidResponse
     updateContact(token: String, request: UpdateContactRequest): VoidResponse
