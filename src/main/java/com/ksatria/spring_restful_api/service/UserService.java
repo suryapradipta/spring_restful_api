@@ -104,4 +104,10 @@ public class UserService {
         return userRepository.findFirstByToken(token)
                 .orElseThrow(()-> new ResponseStatusException(HttpStatus.UNAUTHORIZED, "Unauthorized"));
     }
+
+    @Transactional
+    public List<User> getUsersByIds(List<String> userIds) {
+        // Fetch users by IDs from the repository
+        return userRepository.findAllById(userIds);
+    }
 }

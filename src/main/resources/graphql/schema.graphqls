@@ -72,6 +72,7 @@ type Query {
     loginUser(request: LoginUserRequest): User
     getCurrentUser(token: String): User
     getAllContacts: [Contact]
+    getAllContactsWithUsers: [Contact]
 }
 
 

@@ -93,10 +93,10 @@ public class ContactController {
         return contactService.createContact(token, request);
     }
 
-    @QueryMapping
-    public List<Contact> getAllContacts() {
-        return contactService.getAllContacts();
-    }
+//    @QueryMapping
+//    public List<Contact> getAllContacts() {
+//        return contactService.getAllContacts();
+//    }
 
     @MutationMapping
     public VoidResponse updateContact(@Argument  String token, @Argument UpdateContactRequest request) {
@@ -107,4 +107,10 @@ public class ContactController {
     public VoidResponse deleteContact(@Argument String token, @Argument String contactId) {
         return contactService.deleteContact(token, contactId);
     }
+
+    @QueryMapping
+    public List<Contact> getAllContactsWithUsers() {
+        return contactService.getAllContactsWithUsers();
+    }
+
 }

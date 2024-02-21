@@ -9,6 +9,7 @@ import com.ksatria.spring_restful_api.model.response.VoidResponse;
 import com.ksatria.spring_restful_api.repository.ContactRepository;
 import com.ksatria.spring_restful_api.repository.UserRepository;
 import lombok.AllArgsConstructor;
+import org.dataloader.DataLoader;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Service;
@@ -27,6 +28,10 @@ public class ContactService {
     private final UserRepository userRepository;
 
     private final ValidationService validationService;
+
+    @Autowired
+    private DataLoader<String, User> userLoader;
+
     public ContactResponse toContactResponse(Contact contact) {
         return ContactResponse.builder()
             .id(contact.getId())
@@ -163,6 +168,15 @@ public class ContactService {
                 true,
                 "Contact successfully deleted"
         );
+    }
+
+    public List<Contact> getAllContactsWithUsers() {
+        List<Contact> contacts = contactRepository.getAllContacts();
+
+        // Load users for contacts using the data loader
+        contacts.forEach(contact -> userLoader.load(contact.getUser().getName()));
+
+        return contacts;
     }
 
 }
