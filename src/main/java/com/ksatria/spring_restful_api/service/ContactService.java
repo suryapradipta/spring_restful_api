@@ -123,7 +123,7 @@ public class ContactService {
 
     @Transactional
     public List<Contact> getAllContacts() {
-        return contactRepository.findAll();
+        return contactRepository.getAllContacts();
     }
 
     @Transactional
@@ -164,4 +164,5 @@ public class ContactService {
                 "Contact successfully deleted"
         );
     }
+
 }
