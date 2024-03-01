@@ -15,6 +15,7 @@ import org.springframework.web.server.ResponseStatusException;
 
 import java.util.List;
 import java.util.Objects;
+import java.util.stream.Collectors;
 
 @Service
 @AllArgsConstructor
@@ -93,9 +94,17 @@ public class UserService {
 
 
 
+
+
     @Transactional
-    public List<User> getAllUsers() {
-        return userRepository.findAll();
+    public List<UserResponse> getAllUsers() {
+        List<User> users = userRepository.findAll();
+        return users.stream()
+                .map(user-> UserResponse.builder()
+                        .username(user.getUsername())
+                        .name(user.getName())
+                        .build())
+                .collect(Collectors.toList());
     }
 
 

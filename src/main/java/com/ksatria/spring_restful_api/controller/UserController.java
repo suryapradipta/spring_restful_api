@@ -55,8 +55,18 @@ public class UserController {
             .data(userResponse).build();
     }
 
+
+    @GetMapping(
+            path = "/api/users/all",
+            produces = MediaType.APPLICATION_JSON_VALUE
+    )
+    public List<UserResponse> getAllUsers() {
+        return userService.getAllUsers();
+    }
+
+
     @QueryMapping
-    public List<User> allUsers() {
+    public List<UserResponse> allUsers() {
         return userService.getAllUsers();
     }
 
