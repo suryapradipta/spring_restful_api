@@ -58,8 +58,14 @@ input UpdateContactRequest {
     email: String
 }
 
+input UpdateUserRequest {
+    name: String
+    password: String
+}
+
 type Mutation {
     registerUser(request: RegisterUserRequest) : VoidResponse
+    updateUser(token: String, request: UpdateUserRequest) : VoidResponse
     logOutUser(token: String): VoidResponse
     createContact(token: String, request: CreateContactRequest): VoidResponse
     updateContact(token: String, request: UpdateContactRequest): VoidResponse

@@ -69,4 +69,9 @@ public class UserController {
     public User getCurrentUser(@Argument String token) {
         return userService.currentUser(token);
     }
+
+    @MutationMapping
+    public VoidResponse updateUser(@Argument String token, @Argument UpdateUserRequest request) {
+        return userService.updateUser(token, request);
+    }
 }

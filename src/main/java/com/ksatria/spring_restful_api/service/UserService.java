@@ -68,6 +68,29 @@ public class UserService {
             .build();
     }
 
+    @Transactional
+    public VoidResponse updateUser(String token, UpdateUserRequest request) {
+        validationService.validate(request);
+
+        User user = userRepository.findFirstByToken(token)
+                .orElseThrow(() -> new ResponseStatusException(HttpStatus.UNAUTHORIZED, "Unauthorized"));
+
+        if(Objects.nonNull(request.getName())) {
+            user.setName(request.getName());
+        }
+
+        if(Objects.nonNull(request.getPassword())) {
+            user.setPassword(BCrypt.hashpw(request.getPassword(), BCrypt.gensalt()));
+        }
+
+        userRepository.save(user);
+
+        return new VoidResponse(
+                true,
+                "User successfully updated"
+        );
+    }
+
 
 
     @Transactional

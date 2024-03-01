@@ -25,6 +25,5 @@ public class CreateContactRequest {
     private String phone;
 
     @Size(max = 100)
-    @Email
     private String email;
 }
