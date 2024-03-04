@@ -37,3 +37,38 @@ jadi harus disimpan dulu di 1 object, nanti ditambahkan validasi di level servic
 * setiap ada controller yang butuh data user (parameter), maka secara otomatis menggunakan UserArgumentResolver
 * untuk dapetin data user, kemudian check apakah tokennya ada atau tidak 
 * kemudian Resolvernya ditambahkan di WebConfiguration
+
+# Code from the jasperreport tutorial
+
+        /*String jasperFilePath = "C:\\Users\\GTR6\\OneDrive - Ksatria Medical Systems Pty Ltd\\Documents\\GitHub\\spring_restful_api\\src\\main\\resources\\reports\\jasperDesigns\\ContactListReport.jasper";
+
+        try {
+            // Step 1: Load Jasper Report
+            JasperReport jasperReport = (JasperReport) JRLoader.loadObjectFromFile(jasperFilePath);
+
+            // Step 2: Create data sources
+            List<UserDetails> userDetailsList = new ArrayList<>();
+            userDetailsList.add(new UserDetails("admin"));
+            JRBeanCollectionDataSource dataSource = new JRBeanCollectionDataSource(userDetailsList);
+
+            List<ContactDetails> contactDetailsList = new ArrayList<>();
+            contactDetailsList.add(new ContactDetails("Bob", "Smith", "555-5678", "bob.smith@example.com"));
+            contactDetailsList.add(new ContactDetails("Alice", "Jones", "555-1234", "alice.jones@example.com"));
+            JRBeanCollectionDataSource tableDataSource = new JRBeanCollectionDataSource(contactDetailsList);
+
+            // Step 3: Set parameters
+            Map<String, Object> parameters = new HashMap<>();
+            parameters.put("TABLE_DATA_SOURCE", tableDataSource);
+
+            // Step 4: Fill report and generate JasperPrint
+            JasperPrint jasperPrint = JasperFillManager.fillReport(jasperReport, parameters, dataSource);
+
+            // Step 5: Export report
+            JasperExportManager.exportReportToPdfFile(jasperPrint, "C:\\Users\\GTR6\\OneDrive - Ksatria Medical Systems Pty Ltd\\Documents\\GitHub\\spring_restful_api\\src\\main\\resources\\reports\\generatedReports\\ContactListReport.pdf");
+
+            System.out.println("Report generated");
+
+        } catch (JRException e) {
+            e.printStackTrace();
+            throw new RuntimeException("Error generating report", e);
+        }*/

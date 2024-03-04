@@ -170,6 +170,7 @@ public class ContactService {
         );
     }
 
+    @Transactional
     public List<Contact> getAllContactsWithUsers() {
         List<Contact> contacts = contactRepository.getAllContacts();
 
@@ -178,5 +179,8 @@ public class ContactService {
 
         return contacts;
     }
+
+
+
 
 }
