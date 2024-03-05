@@ -1,6 +1,7 @@
 package com.ksatria.spring_restful_api.service;
 
 import com.ksatria.spring_restful_api.beans.UserDetails;
+import com.ksatria.spring_restful_api.common.config.JasperConfig;
 import com.ksatria.spring_restful_api.entity.Contact;
 import com.ksatria.spring_restful_api.entity.User;
 import com.ksatria.spring_restful_api.repository.ContactRepository;
@@ -23,11 +24,11 @@ public class ReportService {
 
     private final ContactRepository contactRepository;
     private final DataLoader<String, User> userLoader;
-
+    private final JasperConfig jasperConfig;
 
     @Transactional
     public ResponseEntity<byte[]> generateReport() {
-        String jasperFilePath = "C:\\Users\\GTR6\\OneDrive - Ksatria Medical Systems Pty Ltd\\Documents\\GitHub\\spring_restful_api\\src\\main\\resources\\reports\\jasperDesigns\\ContactListReport.jasper";
+        String jasperFilePath = jasperConfig.getJasperFilePath();
 
         try {
             // Load Jasper Report
@@ -56,7 +57,7 @@ public class ReportService {
 
             byte[] pdfBytes = JasperExportManager.exportReportToPdf(jasperPrint);
 
-            JasperExportManager.exportReportToPdfFile(jasperPrint, "C:\\Users\\GTR6\\OneDrive - Ksatria Medical Systems Pty Ltd\\Documents\\GitHub\\spring_restful_api\\src\\main\\resources\\reports\\generatedReports\\ContactListReport.pdf");
+            //JasperExportManager.exportReportToPdfFile(jasperPrint, "C:\\Users\\GTR6\\OneDrive - Ksatria Medical Systems Pty Ltd\\Documents\\GitHub\\spring_restful_api\\src\\main\\resources\\reports\\generatedReports\\ContactListReport.pdf");
 
             return new ResponseEntity<>(pdfBytes, HttpStatus.OK);
 
