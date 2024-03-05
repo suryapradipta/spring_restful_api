@@ -10,7 +10,6 @@ import org.springframework.web.bind.annotation.RestControllerAdvice;
 import org.springframework.web.server.ResponseStatusException;
 
 @RestControllerAdvice
-@CrossOrigin(origins = "http://localhost:4200")
 public class ErrorController {
 
     @ExceptionHandler(ConstraintViolationException.class)
